@@ -20,8 +20,6 @@ let highscoreEl = 0;
 
 let randomNumber = Math.floor(Math.random() * 20) + 1;
 
-console.log(randomNumber);
-
 checkBtn.addEventListener('click', () => {
   if (guess.value) {
     if (guess.value == randomNumber) {
