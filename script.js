@@ -25,9 +25,6 @@ let randomNumber = Math.floor(Math.random() * 20) + 1;
 checkBtn.addEventListener('click', () => {
   if (guess.value) {
     if (guess.value == randomNumber) {
-      message.textContent = 'Congratulations!✅';
-      number.textContent = randomNumber;
-      body.style.background = '#18d13d';
       if (scoreEl > highscoreEl) {
         highscoreEl = scoreEl;
         highscore.textContent = highscoreEl;
@@ -35,9 +32,12 @@ checkBtn.addEventListener('click', () => {
 
       setTimeout(function winner() {
         modalWin.classList.remove('hidden');
+        message.textContent = 'Congratulations!✅';
+        number.textContent = randomNumber;
+        body.style.background = '#18d13d';
         let winmusic = new Audio('2.mp3')
         winmusic.play()
-      }, 1000);
+      }, 10);
     } else if (guess.value > randomNumber) {
       message.textContent = 'Too high! Try again ';
       scoreEl--;
@@ -57,7 +57,7 @@ checkBtn.addEventListener('click', () => {
       modalWrapper.classList.remove('hidden');
       let loserMusic = new Audio('3.mp3')
       loserMusic.play()
-    }, 1000);
+    }, 10);
   }
 });
 
