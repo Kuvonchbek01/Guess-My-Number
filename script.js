@@ -8,6 +8,8 @@ const number = document.querySelector('.number');
 const body = document.querySelector('body');
 const modalWrapper = document.querySelector('.modal-wrapper');
 const modalAgain = document.querySelector('.modal-again');
+const modalWin = document.querySelector('.modal-win-wrapper');
+const modalWinAgain = document.querySelector('.modal-win-again')
 
 //score
 let scoreEl = 20;
@@ -25,11 +27,17 @@ checkBtn.addEventListener('click', () => {
     if (guess.value == randomNumber) {
       message.textContent = 'Congratulations!✅';
       number.textContent = randomNumber;
-      body.style.background = '#dd02ff';
+      body.style.background = '#18d13d';
       if (scoreEl > highscoreEl) {
         highscoreEl = scoreEl;
         highscore.textContent = highscoreEl;
       }
+
+      setTimeout(function winner() {
+        modalWin.classList.remove('hidden');
+        let winmusic = new Audio('2.mp3')
+        winmusic.play()
+      }, 1000);
     } else if (guess.value > randomNumber) {
       message.textContent = 'Too high! Try again ';
       scoreEl--;
@@ -44,21 +52,32 @@ checkBtn.addEventListener('click', () => {
   }
 
   if (scoreEl <= 0) {
-    modalWrapper.classList.remove('hidden');
+    setTimeout(function loser() {
+      modalWrapper.classList.remove('hidden');
+      modalWrapper.classList.remove('hidden');
+      let loserMusic = new Audio('3.mp3')
+      loserMusic.play()
+    }, 1000);
   }
 });
 
 againBtn.addEventListener('click', () => {
-  againGame()
+  againGame();
 });
 
 modalAgain.addEventListener('click', () => {
-  againGame()
-  modalWrapper.classList.add('hidden')
+  againGame();
+  modalWrapper.classList.add('hidden');
+  modalWin.classList.add('hidden')
 });
 
+modalWinAgain.addEventListener('click', () => {
+  againGame();
+  modalWrapper.classList.add('hidden');
+  modalWin.classList.add('hidden')
+});
 
-function againGame(){
+function againGame() {
   scoreEl = 20;
   score.textContent = scoreEl;
   body.style.background = '#222';
@@ -67,3 +86,10 @@ function againGame(){
   guess.value = '';
   randomNumber = Math.floor(Math.random() * 20) + 1;
 }
+
+// background music
+function bodyMusic() {
+  const music = new Audio('1.mp3');
+  music.play();
+}
+bodyMusic();
